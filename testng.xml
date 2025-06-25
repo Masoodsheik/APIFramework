@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <listeners>
+        <listener class-name="listeners.ExtentReportManagers" />
+    </listeners>
+
+    <test verbose="2" preserve-order="true" name="/Users/masood@backbase.com/Downloads/bookStoreAPI">
+        <classes>
+            <class name="bookStore.BookstoreApiTest">
+                <methods>
+                    <include name="testCreateBook"/>
+                    <include name="getBookDetails"/>
+                    <include name="updateBookDetaila"/>
+                    <include name="deleteBook"/></methods>
+            </class>
+
+        </classes>
+    </test>
+</suite>
