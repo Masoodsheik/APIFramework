@@ -1,77 +1,21 @@
-bookStoreAPI/
-├── pom.xml
-├── testng.xml
-├── src/https://github.com/Masoodsheik/APIFramework/blob/main/README.md
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── App.java
-│   │   └── resources/
-│   │       ├── archetype-resources/
-│   │       │   ├── pom.xml
-│   │       │   └── src/main/java/App.java
-│   │       └── META-INF/
-│   │           └── maven/archetype.xml
-│   └── test/
-│       ├── java/
-│       │   ├── bookStore/
-│       │   │   ├── baseTest.java
-│       │   │   ├── BookstoreApiTest.java
-│       │   │   ├── createBook.java
-│       │   │   ├── signup.java
-│       │   │   └── bookStores.java
-│       │   ├── context/
-│       │   │   └── TestContext.java
-│       │   ├── listeners/
-│       │   │   ├── ExtentReportManagers.java
-│       │   │   └── Setup.java
-│       │   ├── Pojos/
-│       │   │   ├── accessToken.java
-│       │   │   ├── createBooks.java
-│       │   │   └── signUp.java
-│       │   └── utils/
-│       │       └── restUtils.java
-│       └── resources/
-└── target/
-    ├── classes/
-    ├── generated-sources/
-    ├── maven-archiver/
-    ├── surefire-reports/
-    ├── test-classes/
-    └── test-output/
-        └── ExtentReports/
-            └── API_Automation_Report.html
-
-
-Key Components:
-
-pom.xml: Maven Project Object Model file, defining project dependencies and build configurations.
-
-testng.xml: TestNG suite XML file, defining the test suite, test classes, and methods to be executed, along with listener configuration for ExtentReports.
-
-src/test/java/bookStore/: Contains the core test classes.
-
-baseTest.java: Base class for all API tests, setting up RestAssured.baseURI and initializing TestContext.
-
-BookstoreApiTest.java: Contains the main API test methods for various bookstore functionalities.
-
-createBook.java: Utility for creating createBooks POJO objects.
-
-signup.java: Utility for creating signUp POJO objects and generating test data.
-
-bookStores.java: Contains additional test methods related to user and book operations.
-
-src/test/java/context/TestContext.java: Manages shared test context information, such as accessToken and tokenType, across different test methods.
-
-src/test/java/listeners/ExtentReportManagers.java: Implements ITestListener to manage ExtentReports lifecycle, including report initialization, test start/finish, and logging test status.
-
-src/test/java/Pojos/: Contains Plain Old Java Objects (POJOs) representing the request and response structures for API calls.
-
-accessToken.java: POJO for access token details.
-
-createBooks.java: POJO for book creation data.
-
-signUp.java: POJO for user signup data.
-
-src/test/java/utils/restUtils.java: A utility class providing generic methods for performing various HTTP requests (POST, GET, PUT, DELETE) with RestAssured.
-
-
+src/main/java
+├── bookStore                 # Contains test classes and helper classes for Bookstore API
+│   ├── baseTest.java         # Base class for API tests, sets up RestAssured base URI and TestContext.
+│   ├── BookstoreApiTest.java # Main test class for CRUD operations on books.
+│   ├── createBook.java       # Helper for creating CreateBooks POJO instances.
+│   └── signup.java           # Helper for creating SignUp POJO instances.
+├── context                   # Manages shared test context (e.g., authentication tokens)
+│   └── TestContext.java      # Stores and provides access tokens and authorization headers.
+├── endPoints                 # Centralized API endpoint definitions
+│   └── endPoints.java        # Defines all base URLs and specific API paths.
+├── Pojos                     # Plain Old Java Objects (POJOs) for request/response bodies
+│   ├── accessToken.java      # POJO for access token response.
+│   ├── createBooks.java      # POJO for book creation/update request/response.
+│   └── signUp.java           # POJO for user signup request.
+├── Reportlisteners           # Custom TestNG listeners for Extent Reports
+│   ├── ExtentReportManagers.java # Manages ExtentReports generation and logging.
+│   └── Setup.java            # Another listener (potentially for additional report setup).
+├── testData                  # Static test data
+│   └── BooksDetails.java     # Contains static test data for books.
+└── utils                     # Reusable utility methods for API interactions
+└── restUtils.java        # Generic methods for making HTTP requests (POST, GET, PUT, DELETE).
