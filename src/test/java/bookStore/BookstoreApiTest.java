@@ -2,9 +2,10 @@ package bookStore;
 
 import Pojos.createBooks;
 import Pojos.signUp;
+import endPoints.endPoints;
 import io.restassured.response.Response;
-import listeners.ExtentReportManagers;
 import org.testng.annotations.Test;
+import testData.BooksDetails;
 import utils.restUtils;
 import static org.hamcrest.Matchers.*;
 
@@ -12,7 +13,7 @@ public class BookstoreApiTest extends baseTest {
 
 
     private void performLoginAndCaptureToken() {
-        String loginEndpoint = "/login"; // Adjust to your actual login endpoint
+        String loginEndpoint = endPoints.loginEndpoint; // Adjust to your actual login endpoint
         signUp signObjects= signup.getSignUp();
         Response loginResponse= restUtils.performPostRequest(baseTest.BASE_URL,signObjects,loginEndpoint);
         loginResponse.then()
@@ -55,7 +56,7 @@ public class BookstoreApiTest extends baseTest {
 
     @Test
     void getBookDetails(){
-        String bookEndpoint = "/books/";
+        String bookEndpoint = endPoints.bookEndpoint;
         performLoginAndCaptureToken();
         String authorizationHeader = testContext.getAuthorizationHeader();
         Response getBookdDetailsResponse=restUtils.getReponse(baseTest.BASE_URL,bookEndpoint,authorizationHeader);
@@ -67,15 +68,13 @@ public class BookstoreApiTest extends baseTest {
     @Test
     void updateBookDetaila(){
         int dummyBookId=1;
-        String putEndpoint = "/books/" + dummyBookId;
+        String putEndpoint = endPoints.bookEndpoint + dummyBookId;
         performLoginAndCaptureToken();
         String authorizationHeader = testContext.getAuthorizationHeader();
-        createBooks updateCreateBooks=createBook.createBookObject(1,"RestAssured","ShaikMasoodAPI",2022,"Selenium with JavaAPI");
-
-
+        createBooks updateCreateBooks=createBook.createBookObject(BooksDetails.id,BooksDetails.name,BooksDetails.author,BooksDetails.published_year,BooksDetails.bookSummary);
         Response getBookdDetailsResponse=restUtils.putResponse(baseTest.BASE_URL,updateCreateBooks,putEndpoint,authorizationHeader);
-        getBookdDetailsResponse.then()
-                   .statusCode(200);
+        getBookdDetailsResponse.then() .statusCode(200);
+
         softAssert.assertEquals("[0].book_summary",getBookdDetailsResponse.jsonPath().getString("bookSummary"));
         softAssert.assertEquals("[0].published_year",getBookdDetailsResponse.jsonPath().getString("publishedYear"));
         softAssert.assertEquals("[0].author",getBookdDetailsResponse.jsonPath().getString("author"));
@@ -86,7 +85,7 @@ public class BookstoreApiTest extends baseTest {
 
     void deleteBook(){
          int dummyBookId=1;
-         String deleteEndpoint = "/books/" + dummyBookId;
+         String deleteEndpoint = endPoints.deleteEndpoint + dummyBookId;
          performLoginAndCaptureToken();
          String authorizationHeader = testContext.getAuthorizationHeader();
         Response deleteResponse=restUtils.deleteRequest(baseTest.BASE_URL,authorizationHeader,deleteEndpoint);
